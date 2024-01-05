@@ -16,16 +16,13 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Install dependencies
-      run: dotnet restore
+    - name: Restore
+      run: dotnet restore ./Order.PresentationLayer.sln
       
     - name: Build
-      run: |
-        cd DotNet.WebApp
-        dotnet build --configuration Release --no-restore
-        dotnet publish -c Release -o ../dotnet-webapp -r linux-x64 --self-contained true /p:UseAppHost=true
-    - name: Test
-      run: |
-        cd DotNet.WebApp.Tests
-        dotnet test --no-restore --verbosity normal
+      run: dotnet build ./Order.PresentationLayer.sln --configuration Release --no-restore
+         
+    - name: Publish
+      run: dotnet publish ./Order.PresentationLayer.sln --configuration Release --no-build
+        
       
