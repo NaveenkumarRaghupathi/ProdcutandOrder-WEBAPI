@@ -5,18 +5,23 @@ on:
    branches:
     - main
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-     - uses: actions/checkout@v1
-     - name: Setup .NET
-       uses: actions/setup-dotnet@v1
-       with:
-        dotnet-version:'8.0.x'
-      - name: Restore
-        run: dotnet restore ./Order.PresentationLayer.sln
-      - name: Build
-        run: dotnet build ./Order.PresentationLayer.sln --configuration Release --no-restore
-      - name: Publish
-        run: dotnet Publish ./Order.PresentationLayer.sln --configuration Release --no-build
+ publish:
+  runs-on: ubuntu-latest
+
+  steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+       dotnet-version: '8.0.x'
+
+    - name: Restore
+      run: dotnet restore ./CurrentTimeService.sln
+
+    - name: Build
+      run: dotnet build ./CurrentTimeService.sln -- configuration Release -- no-restore
+
+    - name: Publish
+      run: dotnet publish ./CurrentTimeService.sln -- configuration Release -- no-build
        
