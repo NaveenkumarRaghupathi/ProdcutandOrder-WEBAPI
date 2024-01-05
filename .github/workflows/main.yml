@@ -1,0 +1,28 @@
+name: publish
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  publish:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore
+      run: dotnet restore ./Order.PresentationLayer.sln
+      
+    - name: Build
+      run: dotnet build ./Order.PresentationLayer.sln --configuration Release --no-restore
+         
+    - name: Publish
+      run: dotnet publish ./Order.PresentationLayer.sln --configuration Release --no-build
+        
+      
