@@ -17,6 +17,12 @@ stages:
         displayName: 'Running Junit tests'
         steps:
           - script: echo 'Running demo app unit test'
+          - task: CopyFiles@2
+            displayName: Copy Files
+            inputs:
+              SourceFolder: $(system.defaultworkingdirectory)/target/azure-functions/
+              Contents: '**'
+              TargetFolder: $(build.artifactstagingdirectory)
           - task: Maven@3
             inputs:
               mavenPomFile: 'pom.xml'
